@@ -19,7 +19,7 @@ export class ItemController{
     }
 
     @Post()
-    public createPerson(@Body() person: Item): Promise<Item>{
-        return this.itemService.create(person)
+    public createItem(@Body() item: Item): Promise<Item>{
+        return this.itemService.create(item)
     }
 }

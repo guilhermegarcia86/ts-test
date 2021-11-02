@@ -4,8 +4,8 @@ import { ItemRepository } from "src/ports/repository/item.repository"
 export class ItemService{
     constructor(private readonly repository: ItemRepository){}
 
-    async create(person: Item): Promise<Item>{
-        return this.repository.save(person)
+    async create(item: Item): Promise<Item>{
+        return this.repository.save(item)
     }
 
     async delete(id: string){

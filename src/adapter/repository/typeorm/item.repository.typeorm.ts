@@ -1,47 +1,41 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Item } from "src/domain/item"
+import { Item } from "src/domain/item";
 import { ItemRepository } from "src/ports/repository/item.repository"
-import { Repository } from "typeorm";
-import { ItemEntity } from "./entity/item.entity";
+import { getManager, Repository } from "typeorm";
 
 @Injectable()
 export default class ItemRepositoryTypeORM implements ItemRepository{
 
     private readonly logger = new Logger(ItemRepositoryTypeORM.name)
 
-    constructor(@InjectRepository(ItemEntity) private readonly personRepository: Repository<ItemEntity>){}
+    constructor(@InjectRepository(Item) private readonly itemRepository: Repository<Item>){}
 
     async save(item: Item): Promise<Item> {
 
-        // let personEntity = new PersonEntity()
-        // personEntity.name = person.name
-        // personEntity.document = person.document
+        let parentItem
 
-        // const personSaved: PersonEntity = await this.personRepository.save(personEntity)
+        let itemEntity = new Item()
 
-        // return new Person(personSaved.id, personSaved.name, personSaved.document)
+        if(item.relatedId){
+            parentItem = await this.itemRepository.findOne(item.relatedId)
+            itemEntity.parentMenu = parentItem
+        }
 
-        return null;
+        itemEntity.name = item.name
+
+        return await this.itemRepository.save(itemEntity)
     }
 
 
-    async delete(id: string) {
-
+    delete(id: string) {
+        this.itemRepository.delete(id)
     }
 
 
     async findAll(): Promise<Item[]> {
 
-        // const personEntityArray: PersonEntity[] = await this.personRepository.find()
-
-        // const personArray: Person[] = personEntityArray.map((personEntity) => {
-        //     return new Person(personEntity.id, personEntity.name, personEntity.document)
-        // })
-
-        // return personArray
-
-        return null;
+        return await this.itemRepository.manager.getTreeRepository(Item).findTrees()
     }
     
 }

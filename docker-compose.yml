@@ -4,9 +4,9 @@ services:
   postgres:
     image: postgres
     environment: 
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: user
-      POSTGRES_DB: test
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: myuser
+      POSTGRES_DB: menu
     ports: 
       - "5432:5432"
     volumes: 
