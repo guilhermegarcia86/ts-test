@@ -8,7 +8,7 @@ export class ItemService{
         return this.repository.save(item)
     }
 
-    async delete(id: string){
+    async delete(id: number){
         return this.repository.delete(id)
     }
 

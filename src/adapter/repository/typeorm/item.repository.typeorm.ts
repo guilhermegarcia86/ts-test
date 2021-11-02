@@ -13,12 +13,10 @@ export default class ItemRepositoryTypeORM implements ItemRepository{
 
     async save(item: Item): Promise<Item> {
 
-        let parentItem
-
         let itemEntity = new Item()
 
         if(item.relatedId){
-            parentItem = await this.itemRepository.findOne(item.relatedId)
+            let parentItem = await this.itemRepository.findOne(item.relatedId)
             itemEntity.parentMenu = parentItem
         }
 
@@ -28,7 +26,7 @@ export default class ItemRepositoryTypeORM implements ItemRepository{
     }
 
 
-    delete(id: string) {
+    delete(id: number) {
         this.itemRepository.delete(id)
     }
 
@@ -36,6 +34,10 @@ export default class ItemRepositoryTypeORM implements ItemRepository{
     async findAll(): Promise<Item[]> {
 
         return await this.itemRepository.manager.getTreeRepository(Item).findTrees()
+    }
+
+    async findById(id: number): Promise<Item>{
+        return await this.itemRepository.findOne(id)
     }
     
 }

@@ -9,7 +9,7 @@ export class ItemController{
     constructor(@Inject(ConfigServiceModule.ITEM_SERVICE) private readonly itemService: ItemService){}
 
     @Delete(':id')
-    public findById(@Param('id') id: string): Promise<Item>{
+    public findById(@Param('id') id: number): Promise<Item>{
         return this.itemService.delete(id)
     }
 
