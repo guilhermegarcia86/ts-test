@@ -3,7 +3,7 @@ import { Item } from "src/domain/item"
 import { ItemService } from "src/service/item.service"
 import { ConfigServiceModule } from "./config/config-service.module"
 
-@Controller('item')
+@Controller('/api/v1/menu')
 export class ItemController{
 
     constructor(@Inject(ConfigServiceModule.ITEM_SERVICE) private readonly itemService: ItemService){}
