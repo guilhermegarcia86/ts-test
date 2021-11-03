@@ -19,6 +19,7 @@ export default class ItemRepositoryTypeORM implements ItemRepository{
 
         if(item.relatedId){
             let parentItem = await this.itemRepository.findOne(item.relatedId)
+            if(!parentItem) throw new Error("Should exists a valid relatedId")
             itemEntity.parentMenu = parentItem
         }
 

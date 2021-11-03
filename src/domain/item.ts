@@ -5,8 +5,8 @@ import { IsNotEmpty, IsString } from "class-validator"
 @Entity({name: "Item"})
 @Tree("closure-table", {
     closureTableName: "item",
-    ancestorColumnName: (column) => "parent_" + column.propertyName,
-    descendantColumnName: (column) => "descendant_" + column.propertyName
+    ancestorColumnName: (column) => `parent_${column.propertyName}`,
+    descendantColumnName: (column) => `descendant_${column.propertyName}`
 })
 export class Item {
 
